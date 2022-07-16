@@ -24,7 +24,7 @@ const tableGroupCtrl = {};
 //   },
 // ];
 
-tableGroupCtrl.getAllGroups = async (req,res) => {
+tableGroupCtrl.getAllGroups = async (req, res) => {
   let count = await TableGroup.find();
 
   if (count.length == 0) {
@@ -36,9 +36,9 @@ tableGroupCtrl.getAllGroups = async (req,res) => {
       });
 
       await newTableGroup.save();
-      const tableGroups = await TableGroup.find();
-      res.send(tableGroups);
     }
+    const tableGroups = await TableGroup.find();
+    res.send(tableGroups);
   } else {
     const tableGroups = await TableGroup.find();
     res.send(tableGroups);
