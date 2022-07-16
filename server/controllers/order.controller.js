@@ -23,11 +23,24 @@ orderCtrl.addOrder = async (req, res) => {
 };
 
 orderCtrl.getBilling = async (req, res) => {
-  const ordersInGroup = await TableGroup
-    .findById(req.params.id)
-    .populate("orders");
+  const ordersInGroup = await TableGroup.findById(req.params.id).populate(
+    "orders"
+  );
   let orders = await ordersInGroup.orders;
-  res.json(orders);
+
+  let totalInOrder = 0;
+  orders.forEach((order) => {
+    totalInOrder += order.price;
+  });
+  const amountPerPerson = totalInOrder / orders.length;
+  let amountPerPersonTip = amountPerPerson;
+  amountPerPersonTip += amountPerPerson * 0.1;
+  amountPerPersonTip = parseFloat(amountPerPersonTip.toFixed(2));
+  const bill = {
+    amountPerPerson: amountPerPerson,
+    amountPerPersonTip: amountPerPersonTip,
+  };
+  res.json(bill);
 };
 
 module.exports = orderCtrl;
