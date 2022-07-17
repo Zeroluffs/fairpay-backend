@@ -32,7 +32,8 @@ orderCtrl.getBilling = async (req, res) => {
   orders.forEach((order) => {
     totalInOrder += order.price;
   });
-  const amountPerPerson = totalInOrder / orders.length;
+  let amountPerPerson = totalInOrder / orders.length;
+  amountPerPerson = parseFloat(amountPerPerson.toFixed(2));
   let amountPerPersonTip = amountPerPerson;
   amountPerPersonTip += amountPerPerson * 0.1;
   amountPerPersonTip = parseFloat(amountPerPersonTip.toFixed(2));
