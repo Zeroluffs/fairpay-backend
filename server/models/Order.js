@@ -3,10 +3,10 @@ const { Schema } = mongoose;
 
 const OrderSchema = new Schema(
   {
-    name: String,
-    product: String,
-    price: Number,
-    groupID: String
+    name: { type: String, required: true },
+    product: { type: String, required: true },
+    price: { type: String, required: true },
+    groupID: { type: String, required: true },
   },
   {
     timestamps: true,

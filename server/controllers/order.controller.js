@@ -27,21 +27,26 @@ orderCtrl.getBilling = async (req, res) => {
     "orders"
   );
   let orders = await ordersInGroup.orders;
-
-  let totalInOrder = 0;
-  orders.forEach((order) => {
-    totalInOrder += order.price;
-  });
-  let amountPerPerson = totalInOrder / orders.length;
-  amountPerPerson = parseFloat(amountPerPerson.toFixed(2));
-  let amountPerPersonTip = amountPerPerson;
-  amountPerPersonTip += amountPerPerson * 0.1;
-  amountPerPersonTip = parseFloat(amountPerPersonTip.toFixed(2));
-  const bill = {
-    amountPerPerson: amountPerPerson,
-    amountPerPersonTip: amountPerPersonTip,
-  };
-  res.json(bill);
+  if (orders.length > 0) {
+    let totalInOrder = 0;
+    orders.forEach((order) => {
+      totalInOrder += order.price;
+    });
+    let amountPerPerson = totalInOrder / orders.length;
+    amountPerPerson = parseFloat(amountPerPerson.toFixed(2));
+    let amountPerPersonTip = amountPerPerson;
+    amountPerPersonTip += amountPerPerson * 0.1;
+    amountPerPersonTip = parseFloat(amountPerPersonTip.toFixed(2));
+    const bill = {
+      amountPerPerson: amountPerPerson,
+      amountPerPersonTip: amountPerPersonTip,
+    };
+    res.json(bill);
+  } else {
+    res.status(400).send({
+      message: "There is no data",
+    });
+  }
 };
 
 module.exports = orderCtrl;
