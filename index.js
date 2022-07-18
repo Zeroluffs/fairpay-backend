@@ -18,6 +18,7 @@ app.use(express.json());
 //routes
 app.use("/api/tgroup", require("./server/routes/tableGroup.routes"));
 app.use("/api/order", require("./server/routes/order.routes"));
+app.use("api/product", require("./server/routes/product.routes"));
 
 //starting server
 app.listen(port, () => {
