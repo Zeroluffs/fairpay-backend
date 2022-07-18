@@ -25,7 +25,7 @@ orderCtrl.getBilling = async (req, res) => {
   const ordersInGroup = await TableGroup.findById(req.params.id).populate(
     "orders"
   );
-  let orders = ordersInGroup.orders;
+  let orders = ordersInGroup?.orders;
 
   if (orders.length > 0) {
     let bill = [];
