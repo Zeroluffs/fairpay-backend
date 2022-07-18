@@ -6,8 +6,7 @@ const orderCtrl = {};
 orderCtrl.addOrder = async (req, res) => {
   const newOrder = new Order({
     name: req.body.name,
-    product: req.body.product,
-    price: req.body.price,
+    products: req.body.products,
     groupID: req.params.id,
   });
 
