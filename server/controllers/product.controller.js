@@ -6,7 +6,7 @@ productCtrl.getProducts = async (req, res) => {
   if (count.length == 0) {
     for (let index = 1; index <= 10; index++) {
       const productName = "Product" + " " + index;
-      const price = Math.floor(Math.random() * 100) + 1;
+      const price = parseInt(Math.floor(Math.random() * 100) + 1);
 
       const newProduct = new Product({
         productName: productName,
@@ -15,8 +15,8 @@ productCtrl.getProducts = async (req, res) => {
 
       await newProduct.save();
     }
-    const tableGroups = await TableGroup.find();
-    res.send(tableGroups);
+    const products = await Product.find();
+    res.send(products);
   } else {
     const products = await Product.find();
     res.send(products);
