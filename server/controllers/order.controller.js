@@ -27,7 +27,7 @@ orderCtrl.getBilling = async (req, res) => {
   );
   let orders = ordersInGroup?.orders;
 
-  if (orders.length > 0) {
+  if (orders?.length > 0) {
     let bill = [];
     orders.forEach((order) => {
       let totalAmountPerPerson = 0;
