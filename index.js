@@ -16,9 +16,9 @@ app.use(morgan("dev"));
 app.use(express.json());
 
 //routes
-app.use("/api/tgroup", require("./server/routes/tableGroup.routes"));
-app.use("/api/order", require("./server/routes/order.routes"));
-app.use("/api/product", require("./server/routes/product.routes"));
+app.use("/api/tgroup", require("./server/Routes/tableGroup.routes"));
+app.use("/api/order", require("./server/Routes/order.routes"));
+app.use("/api/product", require("./server/Routes/product.routes"));
 
 //starting server
 app.listen(port, () => {
