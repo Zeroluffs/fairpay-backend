@@ -25,21 +25,25 @@ orderCtrl.getBilling = async (req, res) => {
   const ordersInGroup = await TableGroup.findById(req.params.id).populate(
     "orders"
   );
-  let orders = await ordersInGroup.orders;
+  let orders = ordersInGroup.orders;
+
   if (orders.length > 0) {
-    let totalInOrder = 0;
+    let bill = [];
     orders.forEach((order) => {
-      totalInOrder += order.price;
+      let totalAmountPerPerson = 0;
+      order.products.forEach((product) => {
+        totalAmountPerPerson = totalAmountPerPerson + product.price;
+      });
+      let totalAmountPerPersonTip = totalAmountPerPerson;
+      totalAmountPerPersonTip += totalAmountPerPersonTip * 0.1;
+      const objectBill = {
+        name: order.name,
+        totalAmountPerPerson: totalAmountPerPerson,
+        totalAmountPerPersonTip: totalAmountPerPersonTip,
+      };
+
+      bill.push(objectBill);
     });
-    let amountPerPerson = totalInOrder / orders.length;
-    amountPerPerson = parseFloat(amountPerPerson.toFixed(2));
-    let amountPerPersonTip = amountPerPerson;
-    amountPerPersonTip += amountPerPerson * 0.1;
-    amountPerPersonTip = parseFloat(amountPerPersonTip.toFixed(2));
-    const bill = {
-      amountPerPerson: amountPerPerson,
-      amountPerPersonTip: amountPerPersonTip,
-    };
     res.json(bill);
   } else {
     res.status(400).send({
